@@ -1,0 +1,29 @@
+{
+    "31337": {
+        "exchange": "",
+        "tokens": [
+            {
+                "name": "DACT",
+                "address": ""
+            },
+            {
+                "name": "IMA",
+                "address": ""
+            },
+            {
+                "name": "NML",
+                "address": ""
+            }
+        ],
+        "markets": [
+            {
+                "name": "DACT / IMA",
+                "tokens": ["", ""]
+            },
+            {
+                "name": "DACT / NML",
+                "tokens": ["", ""]
+            }
+        ]
+    }
+}
