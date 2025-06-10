@@ -16,6 +16,10 @@ const lexend = Lexend({ subsets: ['latin'] })
   //subsets: ["latin"],
 //});
 
+// Components
+import MetaMaskProvider from "./components/providers/MetaMaskProvider"
+import TopNav from "./components/TopNav"
+
 export const metadata = {
   title: "Dex for DACT, IMA & NML",
   description: "Your Decentralised Exchange for DACT, IMA & NML",
@@ -23,12 +27,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${lexend.className}`}>
-        <main className="content">
-          {children}
-        </main>
-      </body>
-    </html>
+    <MetaMaskProvider>
+      <html lang="en">
+        <body className={`${lexend.className}`}>
+          <main className="content">
+            <TopNav />
+            {children}
+          </main>
+        </body>
+      </html>
+    </MetaMaskProvider>
   );
 }
