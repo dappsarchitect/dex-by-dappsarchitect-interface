@@ -2,32 +2,37 @@
 
 import { useEffect } from "react"
 import { useState } from "react"
-
 import { useSDK } from "@metamask/sdk-react"
 import { ethers } from "ethers"
+import { useProvider } from "../hooks/useProvider"
 
 function TopNav() {
+    const { sdk, provider: metamask, chainId } = useSDK()
+    const { provider } = useProvider()
     const [account, setAccount] = useState("")
     const [balance, setBalance] = useState("")
 
-    const { sdk } = useSDK()
-
+    async function connectHandler() {
+        try {
+            await sdk.connectAndSign({ msg: "Sign in to DACT Exchange" })
+            await getAccountInfo()
+        } catch (error) {[
+            console.log(error)
+        ]}
+    }
     async function getAccountInfo() {
-        const ethereum = sdk.getProvider()
-        const provider = new ethers.BrowserProvider(ethereum)
+        // Get the currently connected account & balance
         const account = await provider.getSigner()
         const balance = await provider.getBalance(account)
-        console.log(account)
-        console.log(account.address, balance)
+        
+        // Store the values in the state
+        setAccount(account.address)
+        setBalance(balance)
     }
 
     useEffect(() => {
         // connect to the blockchain here
-        // setAccount("0x0...123")
-        // setBalance("7000 ETH")
-        if(sdk) {
-            getAccountInfo()
-        }
+        connectHandler()
     })
 
     return(
